@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "gulp": "^3",
+    "gulp-concat": "^2",
+    "gulp-declare": "^0.2",
+    "gulp-handlebars": "^2"
+  }
+}

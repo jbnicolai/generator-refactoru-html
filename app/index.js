@@ -9,11 +9,11 @@ var RefactoruHtmlGenerator = yeoman.generators.Base.extend({
   init: function () {
     this.pkg = yeoman.file.readJSON(path.join(__dirname, '../package.json'));
 
-    // this.on('end', function () {
-    //   if (!this.options['skip-install']) {
-    //     this.npmInstall();
-    //   }
-    // });
+    this.on('end', function () {
+      if(this.props.handlebars && !this.options['skip-install']) {
+        this.npmInstall();
+      }
+    });
   },
 
   askFor: function () {
@@ -49,9 +49,18 @@ var RefactoruHtmlGenerator = yeoman.generators.Base.extend({
       },
       {
         type: 'confirm',
+        name: 'handlebars',
+        message: 'Precompiled handlebars templates?',
+        default: false
+      },
+      {
+        type: 'confirm',
         name: 'jquery',
         message: 'jQuery?',
-        default: false
+        default: false,
+        when: function(answers) {
+          return !answers.handlebars;
+        }
       },
       {
         type: 'confirm',
@@ -63,11 +72,18 @@ var RefactoruHtmlGenerator = yeoman.generators.Base.extend({
         type: 'confirm',
         name: 'js',
         message: 'Include a blank main.js file?',
-        default: true
+        default: true,
+        when: function(answers) {
+          return !answers.jquery && !answers.handlebars;
+        }
       }
     ];
 
     this.prompt(prompts, function (props) {
+
+      props.jquery |= props.handlebars
+      props.js |= props.jquery
+
       this.props = props;
 
       done();
@@ -75,8 +91,6 @@ var RefactoruHtmlGenerator = yeoman.generators.Base.extend({
   },
 
   app: function () {
-    // this.mkdir('app');
-    // this.mkdir('app/templates');
 
     this.template('index.html');
 
@@ -84,17 +98,18 @@ var RefactoruHtmlGenerator = yeoman.generators.Base.extend({
       this.write('main.css', '');
     }
 
-    if(this.props.js) {
-      if(this.props.jquery) {
-        this.copy('main-jquery.js', 'main.js')
-      }
-      else {
-        this.write('main.js', '')
-      }
+    if(this.props.js || this.props.jquery || this.props.handlebars) {
+      this.template('main.js')
     }
 
     if(this.props.jasmine) {
       this.directory('test', 'test');
+    }
+
+    if(this.props.handlebars) {
+      this.copy('_package.json', 'package.json');
+      this.copy('Gulpfile.js');
+      this.directory('templates', 'templates');
     }
   },
 });

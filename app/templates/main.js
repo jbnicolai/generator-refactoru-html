@@ -3,7 +3,8 @@ if(props.jquery) { %>$(document).on('ready', function() {<%
 }
 if(props.handlebars) { %>
 
-  var indexHtml = Handlebars.templates.index({
+  var indexTemplate = Handlebars.template(Handlebars.templates.index)
+  var indexHtml = indexTemplate({
     city: 'Boulder'
   });
   $('body').append(indexHtml);

@@ -3,6 +3,9 @@
     "gulp": "^3",
     "gulp-concat": "^2",
     "gulp-declare": "^0.2",
-    "gulp-handlebars": "git://github.com/metaraine/gulp-handlebars#7c7f49d2f47cec76cd478eb8257dc86f3c79f101"
+    "gulp-handlebars": "^2",
+    "gulp-wrap": "^0.3",
+    "gulp-header": "^1",
+    "handlebars": "^2.0.0-alpha"
   }
 }

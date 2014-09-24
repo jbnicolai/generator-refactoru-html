@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Untitled</title><% 
+  <title>Untitled</title><%
   if(props.bootstrap) { %>
   <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.min.css"><%
   }
@@ -17,6 +17,9 @@
 	<%
   if(props.jquery) { %>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><%
+  }
+  if(props.underscore) { %>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script><%
   }
   if(props.js) { %>
 	<script src="main.js"></script><%

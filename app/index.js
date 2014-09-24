@@ -55,6 +55,12 @@ var RefactoruHtmlGenerator = yeoman.generators.Base.extend({
       },
       {
         type: 'confirm',
+        name: 'underscore',
+        message: 'Underscore?',
+        default: false
+      },
+      {
+        type: 'confirm',
         name: 'jasmine',
         message: 'Jasmine tests?',
         default: false
@@ -86,10 +92,10 @@ var RefactoruHtmlGenerator = yeoman.generators.Base.extend({
 
     if(this.props.js) {
       if(this.props.jquery) {
-        this.copy('main-jquery.js', 'main.js')
+        this.copy('main-jquery.js', 'main.js');
       }
       else {
-        this.write('main.js', '')
+        this.write('main.js', '');
       }
     }
 
